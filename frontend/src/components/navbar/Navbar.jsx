@@ -12,11 +12,14 @@ const Navbar = () => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul className="navbar-nav ms-auto">
-                            <li className="nav-item">
+                            <li className="nav-item mx-2">
                                 <a className="nav-link active" aria-current="page" href="#"> Home</a>
                             </li>
-                            <li className="nav-item">
+                            <li className="nav-item mx-2">
                                 <a className="nav-link active" aria-current="page" href="#"> About Us</a>
+                            </li>
+                            <li className="nav-item mx-2">
+                                <a className="nav-link active" aria-current="page" href="#"> Todo</a>
                             </li>
                             <li className="nav-item mx-2">
                                 <a className="nav-link active btn-nav" aria-current="page" href="#"> Sign Up</a>
@@ -27,9 +30,7 @@ const Navbar = () => {
                             <li className="nav-item mx-2">
                                 <a className="nav-link active btn-nav" aria-current="page" href="#"> Log out</a>
                             </li>
-                            <li className="nav-item mx-2">
-                                <a className="nav-link active " aria-current="page" href="#"><img className="img-fluid user-png" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" alt="user-img"/></a>
-                            </li>
+                           
                         </ul>
                     </div>
                 </div>
