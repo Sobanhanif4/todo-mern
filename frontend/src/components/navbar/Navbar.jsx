@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import "./Navbar.css"
 import { RiContactsBook2Fill } from 'react-icons/ri'
 const Navbar = () => {
@@ -5,30 +6,30 @@ const Navbar = () => {
         <div>
             <nav className="navbar navbar-expand-lg navbar-light ">
                 <div className="container">
-                    <a className="navbar-brand" href="#"><b>
-                        <RiContactsBook2Fill /> todo</b></a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <Link className="navbar-brand" to="#"><b>
+                        <RiContactsBook2Fill /> todo</b></Link>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"> 
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul className="navbar-nav ms-auto">
                             <li className="nav-item mx-2">
-                                <a className="nav-link active" aria-current="page" href="#"> Home</a>
+                                <Link className="nav-link active" aria-current="page" to="/"> Home</Link>
                             </li>
                             <li className="nav-item mx-2">
-                                <a className="nav-link active" aria-current="page" href="#"> About Us</a>
+                                <Link className="nav-link active" aria-current="page" to="/about"> About Us</Link>
                             </li>
                             <li className="nav-item mx-2">
-                                <a className="nav-link active" aria-current="page" href="#"> Todo</a>
+                                <Link className="nav-link active" aria-current="page" to="/todo"> Todo</Link>
                             </li>
                             <li className="nav-item mx-2">
-                                <a className="nav-link active btn-nav" aria-current="page" href="#"> Sign Up</a>
+                                <Link className="nav-link active btn-nav" aria-current="page" to="/signup"> Sign Up</Link>
                             </li>
                             <li className="nav-item mx-2">
-                                <a className="nav-link active btn-nav" aria-current="page" href="#"> Sign In</a>
+                                <Link className="nav-link active btn-nav" aria-current="page" to="/signin"> Sign In</Link>
                             </li>
                             <li className="nav-item mx-2">
-                                <a className="nav-link active btn-nav" aria-current="page" href="#"> Log out</a>
+                                <Link className="nav-link active btn-nav" aria-current="page" to="#"> Log out</Link>
                             </li>
                            
                         </ul>
