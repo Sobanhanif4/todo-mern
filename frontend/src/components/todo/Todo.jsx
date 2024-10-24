@@ -1,18 +1,22 @@
 import { useState } from 'react';
 import './todo.css';
+import TodoCards from './TodoCards';
 const Todo = () => {
+    const [Inputs, setInputs] = useState({ title: "", body: "" });
+    const [Array, setArray] = useState([]);
     const show = () => {
-        const [Inputs, setInputs] = useState({title: "",body: ""});
         document.getElementById("textarea").style.display = "block"
     }
-    const change = () => {
-        const {name, value} = e.target;
-        setInputs({...Inputs, [name]: value});
+    const change = (e) => {
+        const { name, value } = e.target;
+        setInputs({ ...Inputs, [name]: value });
     }
     const submit = () => {
-        console.log(Inputs);
-        
+        // console.log(Inputs);
+        setArray([...Array, Inputs]);
+        setInputs({ title: "", body: "" });
     }
+    // console.log(Arrays);
     return (
         <div className='todo'>
             <div className="todo-main container d-flex justify-content-center align-items-center flex-column my-5">
@@ -24,20 +28,28 @@ const Todo = () => {
                         onClick={show}
                         onChange={change}
                     />
-                    <textarea 
-                    id='textarea'
-                    type="text"
-                    placeholder='BODY' 
-                    className='p-2 todo-inputs'
-                    name='body'
-                    value={Inputs.body}
-                    onChange={change}
+                    <textarea
+                        id='textarea'
+                        type="text"
+                        placeholder='BODY'
+                        className='p-2 todo-inputs'
+                        name='body'
+                        value={Inputs.body}
+                        onChange={change}
                     />
-                
-
                 </div>
                 <div className='w-50 d-flex justify-content-end my-3'>
                     <button className="home-btn px-2 py-1" onClick={submit}>Add</button>
+                </div>
+            </div>
+            <div className="todo-body">
+                <div className="container">
+                    {Array && 
+                    Array.map((item, index) => (
+                        <>
+                            <TodoCards />
+                        </>
+                    ))}
                 </div>
             </div>
         </div>
