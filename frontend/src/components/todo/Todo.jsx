@@ -33,7 +33,7 @@ const Todo = ({ updateModal }) => {
     };
     const dis = (value) => {
         console.log(value);
-        document.getElementById("todo-update").style.display = "block";
+        document.getElementById("todo-update").style.display = value;
     }
 
     return (
@@ -70,8 +70,8 @@ const Todo = ({ updateModal }) => {
                                 Array.map((item, index) => (
                                     <>
                                         <div className="col-lg-3 col-10 mx-5 my-2" key={index}>
-                                            <TodoCards title={item.title} body={item.body} id={index} delid={del} 
-                                            display={dis}/>
+                                            <TodoCards title={item.title} body={item.body} id={index} delid={del}
+                                                display={dis} />
                                         </div>
 
                                     </>
@@ -82,7 +82,7 @@ const Todo = ({ updateModal }) => {
             </div>
             <div className="todo-update" id='todo-update'>
                 <div className="container update">
-                    <Update update={updateModal}/>
+                    <Update display={dis} />
                 </div>
             </div>
         </>
