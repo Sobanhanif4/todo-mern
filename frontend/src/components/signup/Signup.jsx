@@ -1,6 +1,7 @@
 import { useState } from "react";
 import HeadingComp from "./HeadingComp"
 import "./signup.css"
+import axios from "axios"
 const Signup = () => {
   const [Inputs, setInputs] = useState({
     email: "",
@@ -11,15 +12,17 @@ const Signup = () => {
     const { name, value } = e.target;
     setInputs({ ...Inputs, [name]: value });
   };
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    console.log(Inputs);
-    setInputs({
-      email: "",
-      username: "",
-      password: "",
-    })
-  } 
+    await axios.post("http://localhost:1000/api/v1/register", Inputs).then((response) => {
+      console.log(response);
+      setInputs({
+        email: "",
+        username: "",
+        password: "",
+      });
+    });
+  }
   return (
     <div className="signup">
       <div className="container">
