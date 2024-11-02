@@ -10,12 +10,12 @@ router.post("/register", async (req, res) => {
         const hashpassword = bcrypt.hashSync(password);
         const user = new User({ email, username, password: hashpassword });
         await user.save().then(() =>
-            res.status(200).json({ user: user })
+            res.status(200).json({message: "Sign Up Successfully!"})
         );
 
     } catch (error) {
         console.log(error);
-        res.status(400).json({ message: " User Already Exists" });
+        res.status(200).json({ message: "User Already Exists" });
 
     }
 });
@@ -29,20 +29,20 @@ router.post("/signin", async (req, res) => {
             email: req.body.email
         });
         if (!user) {
-            res.status(400).json({ message: "Please Sign Up First " });
+            res.status(200).json({ message: "Please Sign Up First " });
         }
 
         const isPasswordCorrect = bcrypt.compareSync(req.body.password, user.password);
         
         if (!isPasswordCorrect) {
-            res.status(400).json({ message: "Please Entre Correct Passwords " });
+            res.status(200).json({ message: "Please Entre Correct Password" });
         }
         const { password, ...others } = user._doc;
         res.status(200).json({ others });
 
     } catch (error) {
         console.log(error);
-        res.status(400).json({ message: " User Already Exists" });
+        res.status(200).json({ message: " User Already Exists" });
 
     }
 });
