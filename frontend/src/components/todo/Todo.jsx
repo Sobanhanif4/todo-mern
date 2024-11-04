@@ -4,6 +4,11 @@ import TodoCards from './TodoCards';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Update from './Update';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../store';
+import axios from "axios"
+let id = sessionStorage.getItem("id")
 const Todo = ({ updateModal }) => {
     const [Inputs, setInputs] = useState({ title: "", body: "" });
     const [Array, setArray] = useState([]);
@@ -14,10 +19,15 @@ const Todo = ({ updateModal }) => {
         const { name, value } = e.target;
         setInputs({ ...Inputs, [name]: value });
     }
-    const submit = () => {
+    const submit = async () => {
         if (Inputs.title === "" || Inputs.body === "") {
             toast.error("Title or Body Can't be Empty!")
         } else {
+            if (id) {
+                await axios.post("http://localhost:1000/api/v2/addTask", {title:Inputs.title,body:Inputs.body,id:id})
+                .then((response)=> {console.log(response);
+                })
+            }
             setArray([...Array, Inputs]);
             setInputs({ title: "", body: "" });
             toast.success("Your Task is Added!")

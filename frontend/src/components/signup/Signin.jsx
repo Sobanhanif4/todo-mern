@@ -3,8 +3,11 @@ import HeadingComp from "./HeadingComp"
 import axios from "axios"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
- 
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../store';
+
 const Signin = () => {
+  const dispatch = useDispatch();
   const history = useNavigate();
   const [Inputs, setInputs] = useState({
     email: "",
@@ -17,7 +20,8 @@ const Signin = () => {
   const submit = async (e) => {
     e.preventDefault();
     await axios.post("http://localhost:1000/api/v1/signin", Inputs).then((response) => {
-      console.log((response.data.others._id));
+      sessionStorage.setItem("id", response.data.others._id);
+      dispatch(authActions.login());
       history("/todo")
     });
   }
