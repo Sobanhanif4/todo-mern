@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { authActions } from '../../store';
 import axios from "axios"
 let id = sessionStorage.getItem("id")
-const Todo = ({ updateModal }) => {
+const Todo = () => {
     const [Inputs, setInputs] = useState({ title: "", body: "" });
     const [Array, setArray] = useState([]);
     const show = () => {
@@ -24,9 +24,10 @@ const Todo = ({ updateModal }) => {
             toast.error("Title or Body Can't be Empty!")
         } else {
             if (id) {
-                await axios.post("http://localhost:1000/api/v2/addTask", {title:Inputs.title,body:Inputs.body,id:id})
-                .then((response)=> {console.log(response);
-                })
+                await axios.post("http://localhost:1000/api/v2/addTask", { title: Inputs.title, body: Inputs.body, id: id })
+                    .then((response) => {
+                        console.log(response);
+                    })
             }
             setArray([...Array, Inputs]);
             setInputs({ title: "", body: "" });
