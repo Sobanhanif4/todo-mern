@@ -1,17 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './todo.css';
 import TodoCards from './TodoCards';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Update from './Update';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { authActions } from '../../store';
-import axios from "axios"
+// import { useSelector } from 'react-redux';
+import axios from "axios";
 let id = sessionStorage.getItem("id")
 const Todo = () => {
     const [Inputs, setInputs] = useState({ title: "", body: "" });
     const [Array, setArray] = useState([]);
+
+    // const isLoggedIn = useSelector((state) => state.isLoggedIn);
+    // if (isLoggedIn) {
+    //     console.log(id);
+
+    // }
+
     const show = () => {
         document.getElementById("textarea").style.display = "block"
     }
@@ -24,29 +29,43 @@ const Todo = () => {
             toast.error("Title or Body Can't be Empty!")
         } else {
             if (id) {
-                await axios.post("http://localhost:1000/api/v2/addTask", { title: Inputs.title, body: Inputs.body, id: id })
+                await axios.post("http://localhost:1000/api/v2/addTask", { title: Inputs.title, body: Inputs.body, id: id, })
                     .then((response) => {
                         console.log(response);
                     })
+                setInputs({ title: "", body: "" });
+                toast.success("Your Task is Added!")
+            } else {
+                setArray([...Array, Inputs]);
+                setInputs({ title: "", body: "" });
+                toast.success("Your Task is Added!")
+                toast.error("Your Task is Not Saved! Please Signup")
             }
-            setArray([...Array, Inputs]);
-            setInputs({ title: "", body: "" });
-            toast.success("Your Task is Added!")
-            toast.error("Your Task is Not Saved! Please Signup")
+
         }
 
     }
     const del = (id) => {
-        // console.log(id);
-        Array.splice(id, 1);
-        setArray([...Array]);
-        toast.success("Your Task is Deleted")
+        console.log(id);
+        // Array.splice(id, 1);
+        // setArray([...Array]);
+        // toast.success("Your Task is Deleted")
     };
     const dis = (value) => {
         console.log(value);
         document.getElementById("todo-update").style.display = value;
     }
 
+    useEffect(() => {
+        const fetch = async () => {
+            await axios.get(`http://localhost:1000/api/v2/getTasks/${id}`)
+                .then((response) => {
+                    setArray(response.data.list);
+                });
+        };
+        fetch();
+    }, [submit]);
+    
     return (
         <>
             <div className='todo'>
@@ -81,7 +100,7 @@ const Todo = () => {
                                 Array.map((item, index) => (
                                     <>
                                         <div className="col-lg-3 col-10 mx-5 my-2" key={index}>
-                                            <TodoCards title={item.title} body={item.body} id={index} delid={del}
+                                            <TodoCards title={item.title} body={item.body} id={item.id} delid={del}
                                                 display={dis} />
                                         </div>
 
