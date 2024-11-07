@@ -7,6 +7,7 @@ import Update from './Update';
 // import { useSelector } from 'react-redux';
 import axios from "axios";
 let id = sessionStorage.getItem("id")
+let updatedArray = [];
 const Todo = () => {
     const [Inputs, setInputs] = useState({ title: "", body: "" });
     const [Array, setArray] = useState([]);
@@ -45,27 +46,41 @@ const Todo = () => {
         }
 
     }
-    const del = (id) => {
-        console.log(id);
-        // Array.splice(id, 1);
-        // setArray([...Array]);
-        // toast.success("Your Task is Deleted")
+    const del = async (Cardid) => {
+
+        if (id) {
+            await axios.delete(`http://localhost:1000/api/v2/deleteTask/${Cardid}`, { data: { id: id } }).then((response) => {
+                toast.success("Your Task is Deleted")
+            })
+
+        } else {
+            toast.error("Please Signup First")
+
+        }
+
     };
     const dis = (value) => {
         console.log(value);
         document.getElementById("todo-update").style.display = value;
     }
 
+    const update = (value) => {
+        updatedArray = Array[value];
+
+    }
+
     useEffect(() => {
-        const fetch = async () => {
-            await axios.get(`http://localhost:1000/api/v2/getTasks/${id}`)
-                .then((response) => {
-                    setArray(response.data.list);
-                });
-        };
-        fetch();
+        if (id) {
+            const fetch = async () => {
+                await axios.get(`http://localhost:1000/api/v2/getTasks/${id}`)
+                    .then((response) => {
+                        setArray(response.data.list);
+                    });
+            };
+            fetch();
+        }
     }, [submit]);
-    
+
     return (
         <>
             <div className='todo'>
@@ -100,7 +115,9 @@ const Todo = () => {
                                 Array.map((item, index) => (
                                     <>
                                         <div className="col-lg-3 col-10 mx-5 my-2" key={index}>
-                                            <TodoCards title={item.title} body={item.body} id={item.id} delid={del}
+                                            <TodoCards title={item.title} body={item.body} id={item._id} delid={del}
+                                                updateId={index}
+                                                toBeUpdate={update}
                                                 display={dis} />
                                         </div>
 
@@ -112,7 +129,7 @@ const Todo = () => {
             </div>
             <div className="todo-update" id='todo-update'>
                 <div className="container update">
-                    <Update display={dis} />
+                    <Update display={dis} update = {updatedArray} />
                 </div>
             </div>
         </>
