@@ -1,12 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 const Update = ({ display, update }) => {
     useEffect(() => {
         setInputs({
             title: update.title,
             body: update.body,
-    })
+        })
     }, [update])
 
     const [Inputs, setInputs] = useState({ title: "", body: "" })
@@ -15,10 +16,13 @@ const Update = ({ display, update }) => {
         setInputs({ ...Inputs, [name]: value });
     }
     const submit = async () => {
-        await axios.put(`http://localhost:1000/api/v2/updateTask/${update.id}`)
-        console.log(Inputs);
-        display("none")
-    }
+        await axios
+            .put(`http://localhost:1000/api/v2/updateTask/${update._id}`, Inputs).then((response) => {
+                toast.success("Your Task has been Updated")
+
+            })
+        display("none");
+    };
     return (
         <div className="p-5 d-flex justify-content-center align-items-start flex-column update" >
             <h3 >UpDate</h3>

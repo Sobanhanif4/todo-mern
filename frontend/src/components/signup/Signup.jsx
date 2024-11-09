@@ -35,7 +35,7 @@ const Signup = () => {
       <div className="container">
         <div className="row">
           <div className="col-lg-8 d-flex justify-content-center column align-items-center">
-            <div className="d-flex flex-column w-100 p-5">
+            <div className="d-flex flex-column w-100 p-3">
               <input
                 type="email"
                 name="email"
@@ -59,10 +59,10 @@ const Signup = () => {
                 onChange={change}
                 value={Inputs.password} />
 
-              <button className="btn-signup p-2" onClick={submit}>Sign Up</button>
+              <button className="btn-signup p-2 " onClick={submit}>Sign Up</button>
             </div>
           </div>
-          <div className="col-lg-4 col-left d-flex justify-content-center column align-items-center">
+          <div className="d-none col-lg-4 col-left d-lg-flex justify-content-center column align-items-center">
             <HeadingComp first="Sign" second="Up" />
           </div>
         </div>

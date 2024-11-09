@@ -30,7 +30,7 @@ const Signin = () => {
       <div className="signup">
         <div className="container">
           <div className="row">
-            <div className="col-lg-4 col-left d-flex justify-content-center column align-items-center">
+            <div className="d-none col-lg-4 col-left d-lg-flex justify-content-center column align-items-center">
               <HeadingComp first="Sign" second="In" />
             </div>
             <div className="col-lg-8 d-flex justify-content-center column align-items-center">
